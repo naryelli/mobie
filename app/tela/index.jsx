@@ -8,8 +8,8 @@ const logoSkoob ='https://upload.wikimedia.org/wikipedia/commons/e/ea/Coruja-sko
 return (
 <View style={styles.container}>
 <LinearGradient
-        start={{ x: 1, y: 8}}
-        end={{ x: 1, y: 14}}
+        start={{ x: 1, y: 0}}
+        end={{ x: 1, y: 1}}
         colors={['white', 'white','blue',]}
         style={styles.background}
       />
