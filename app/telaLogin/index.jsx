@@ -3,11 +3,12 @@ import { View, Text, TextInput, Pressable, StyleSheet, SafeAreaView } from "reac
 
 const style = StyleSheet.create({
     input: {
-        width: '160%',
+        width: '100%',
         margin: 10,
         shadowOpacity: 0.25,  
-        shadowRadius: 3.84,     
+        shadowRadius: 7.84,     
         color: 'gray', 
+        padding:5
         
     },
     container: {
@@ -44,7 +45,12 @@ const style = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         
-    }
+    },
+   box:{
+    shadowOpacity: 0.25,  
+        shadowRadius: 8.84, 
+       padding: 50
+   }
 })
 
 export default SinUp = () => {
@@ -80,6 +86,7 @@ export default SinUp = () => {
 
 return (
     <SafeAreaView style={style.container}>
+        <View style={style.box}>
         <View >
             <Text style={style.titulo}>Registre-se</Text>
         </View>
@@ -108,7 +115,7 @@ return (
                     <Text style={style.botaotexto}>Cadastrar</Text>
                 </Pressable>
             </View>
-
+</View>
         </View>
     </SafeAreaView>
 
