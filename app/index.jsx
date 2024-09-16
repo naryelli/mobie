@@ -13,6 +13,7 @@ export default function Page() {
             <Link href="/Carta" style={styles.link}>• Pokémon</Link>
             <Link href="/lista-tarefa" style={styles.link}>• Lista</Link>
             <Link href="/telaLogin" style={styles.link}>• Login</Link>
+            <Link href="/sobremim" style={styles.link}>• Sobre Mim</Link>
             </View>
         </View>
     );
