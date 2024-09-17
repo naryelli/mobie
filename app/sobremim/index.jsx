@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center'
     },
-
     botao: {
         backgroundColor: '#487047',
         padding: 5,
@@ -72,14 +71,15 @@ export default function App() {
                 <Image
                     style={styles.foto}
                     source={require('./img/nary.jpg')}
-                /><Text style={styles.nome}>Naryelli Julia</Text>
-                <Text style={styles.texto}>Olá! Meu nome é Naryelli. Nos meus momentos<br></br> de lazer, adoro me perder em um bom livro.<br></br> Além disso, sou apaixonada por cuidar dos cabelos<br></br> e sempre estou testando novos produtos</Text>
+                />
+                <Text style={styles.nome}>Naryelli Julia</Text>
+                <Text style={styles.texto}>Olá! Meu nome é Naryelli. Nos meus momentos de lazer, adoro me perder em um bom livro. Além disso, sou apaixonada por cuidar dos cabelos e sempre estou testando novos produtos</Text>
                 
                 <View style={styles.options}>
-                    <Link href="/produtos" style={styles.link}>
-                        <Pressable><Text style={styles.botao}>Livros</Text></Pressable>
+                    <Link href="/sobremim/livros" style={styles.link}>
+                      <Text style={styles.botao}>Livros</Text>
                     </Link>
-                    <Link href="/produtos" style={styles.link}>
+                    <Link href="/sobremim/produtos" style={styles.link}>
                         <Pressable><Text style={styles.botao}>Produtos</Text></Pressable>
                     </Link>
                 </View>
