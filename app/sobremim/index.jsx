@@ -80,7 +80,7 @@ export default function App() {
                       <Text style={styles.botao}>Livros</Text>
                     </Link>
                     <Link href="/sobremim/produtos" style={styles.link}>
-                        <Pressable><Text style={styles.botao}>Produtos</Text></Pressable>
+                        <Text style={styles.botao}>Produtos</Text>
                     </Link>
                 </View>
             </View>

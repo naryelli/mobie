@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
+import { Link } from 'expo-router';
 
 const styles = StyleSheet.create({
     imagem: {
@@ -45,7 +46,13 @@ export default livros = () => {
                 renderItem={({ item }) => (
                     <View style={styles.caixa}>
                         <Text style={styles.titulo}>{item.titulo}</Text>
+                        <Link
+                        href={{
+                            pathname: `sobremim/detalhe/${item.id}`,
+                            params: {'livro':JSON.stringify(item)},
+                        }}>
                         <Image source={item.Image} style={styles.imagem} />
+                        </Link>
                     </View>
 
                 )}
