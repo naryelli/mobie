@@ -3,29 +3,34 @@ import { View, Text, StyleSheet, FlatList, Image } from 'react-native';
 import { Link } from 'expo-router';
 
 const styles = StyleSheet.create({
-    imagem: {
-        height: 100,
-        padding: 20,
-        alignSelf: 'center'
-    },
-    titulo: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 5,
-        fontFamily: 'Open Sans',
-        fontWeight: '800',
-    },
     container: {
         flex: 1,
-        alignContent: 'center',
-        justifyContent: 'center',
-
-
+        backgroundColor: '#f8f9fa',
+        padding: 10,
     },
     caixa: {
-
-
-    }
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
+        marginBottom: 15,
+        elevation: 3,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        overflow: 'hidden',
+    },
+    imagem: {
+        width: '100%',
+        height: 150,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+    titulo: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        padding: 10,
+        color: '#333',
+    },
 }
 
 );

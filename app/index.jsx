@@ -14,6 +14,7 @@ export default function Page() {
             <Link href="/lista-tarefa" style={styles.link}>• Lista</Link>
             <Link href="/telaLogin" style={styles.link}>• Login</Link>
             <Link href="/sobremim" style={styles.link}>• Sobre Mim</Link>
+            <Link href="/ifome" style={styles.link}>• Ifome</Link>
             </View>
         </View>
     );
