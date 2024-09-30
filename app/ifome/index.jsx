@@ -1,18 +1,22 @@
-import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, Button} from 'react-native';
+import React, {useState, useContext} from 'react';
+import { View, Text, StyleSheet, FlatList, Image, Button, Alert} from 'react-native';
+import { Link } from 'expo-router';
+import { AppContext } from '../../scripts/AppContext';
 
 const Comidas = () => {
     const comida = [
-        { id: 1, titulo: 'Combo Barbie', descricao: 'Delicioso combo caracteristico da Barbie.', Image: require('../img/pao.jpg') },
-        { id: 2, titulo: 'Pão de Queijo', descricao: 'Pão de queijo quentinho que nem de vó.', Image: require('../img/queijo.jpg') },
-        { id: 3, titulo: 'Bolo Red Velvet', descricao: 'Bolo aveludado com cream cheese.', Image: require('../img/bolo.jpg') },
-        { id: 4, titulo: 'Sonho de Morango', descricao: 'Sonho recheado com morango fresco.', Image: require('../img/sonho.jpg') },
-        { id: 5, titulo: 'Espetinho de Brownie', descricao: 'Delicioso brownie no palito.', Image: require('../img/espetinho.jpg') },
-        { id: 6, titulo: 'Amor de Panqueca', descricao: 'Panquecas feitas com amor.', Image: require('../img/panqueca.jpg') },
+        { id: 1, titulo: 'Combo Barbie', descricao: 'Delicioso combo caracteristico da Barbie.', Image: require('./img/pao.jpg') },
+        { id: 2, titulo: 'Pão de Queijo', descricao: 'Pão de queijo quentinho que nem de vó.', Image: require('./img/queijo.jpg') },
+        { id: 3, titulo: 'Bolo Red Velvet', descricao: 'Bolo aveludado com cream cheese.', Image: require('./img/bolo.jpg') },
+        { id: 4, titulo: 'Sonho de Morango', descricao: 'Sonho recheado com morango fresco.', Image: require('./img/sonho.jpg') },
+        { id: 5, titulo: 'Espetinho de Brownie', descricao: 'Delicioso brownie no palito.', Image: require('./img/espetinho.jpg') },
+        { id: 6, titulo: 'Amor de Panqueca', descricao: 'Panquecas feitas com amor.', Image: require('./img/panqueca.jpg') },
     ];
+    const {carrinho, setCarrinho} = useContext(AppContext)
 
     return (
         <View style={styles.container}>
+            <Link href="ifome/carrinho" style={styles.link}>carrinho</Link>
             <FlatList
                 data={comida}
                 keyExtractor={item => item.id.toString()}
@@ -21,9 +25,11 @@ const Comidas = () => {
                         <Image source={item.Image} style={styles.imagem} />
                         <Text style={styles.titulo}>{item.titulo}</Text>
                         <Text style={styles.descricao}>{item.descricao}</Text>
-                        <Button style={styles.botao}>
-                           Comprar
-                        </Button>
+                        <Button 
+                        title='Adicionar ao Carrinho'
+                        color={'#FF69B4'}
+                        onPress={() => setCarrinho([...carrinho, item])}
+                        />
                     </View>
                 )}
             />
