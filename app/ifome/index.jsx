@@ -5,18 +5,22 @@ import { AppContext } from '../../scripts/AppContext';
 
 const Comidas = () => {
     const comida = [
-        { id: 1, titulo: 'Combo Barbie', descricao: 'Delicioso combo caracteristico da Barbie.', Image: require('./img/pao.jpg') },
-        { id: 2, titulo: 'Pão de Queijo', descricao: 'Pão de queijo quentinho que nem de vó.', Image: require('./img/queijo.jpg') },
-        { id: 3, titulo: 'Bolo Red Velvet', descricao: 'Bolo aveludado com cream cheese.', Image: require('./img/bolo.jpg') },
-        { id: 4, titulo: 'Sonho de Morango', descricao: 'Sonho recheado com morango fresco.', Image: require('./img/sonho.jpg') },
-        { id: 5, titulo: 'Espetinho de Brownie', descricao: 'Delicioso brownie no palito.', Image: require('./img/espetinho.jpg') },
-        { id: 6, titulo: 'Amor de Panqueca', descricao: 'Panquecas feitas com amor.', Image: require('./img/panqueca.jpg') },
+        { id: 1, titulo: 'Combo Barbie', descricao: 'Delicioso combo caracteristico da Barbie.', Image: require('./img/pao.jpg'), preco:'R$25,00'},
+        { id: 2, titulo: 'Pão de Queijo', descricao: 'Pão de queijo quentinho que nem de vó.', Image: require('./img/queijo.jpg'), preco:'R$8,00'},
+        { id: 3, titulo: 'Bolo Red Velvet', descricao: 'Bolo aveludado com cream cheese.', Image: require('./img/bolo.jpg'), preco:'R$10,00' },
+        { id: 4, titulo: 'Sonho de Morango', descricao: 'Sonho recheado com morango fresco.', Image: require('./img/sonho.jpg'),preco:'R$10,00' },
+        { id: 5, titulo: 'Espetinho de Brownie', descricao: 'Delicioso brownie no palito.', Image: require('./img/espetinho.jpg'), preco:'R$15,00' },
+        { id: 6, titulo: 'Amor de Panqueca', descricao: 'Panquecas feitas com amor.', Image: require('./img/panqueca.jpg'), preco:'R$12,00'},
     ];
     const {carrinho, setCarrinho} = useContext(AppContext)
 
     return (
         <View style={styles.container}>
-            <Link href="ifome/carrinho" style={styles.link}>carrinho</Link>
+           
+            <Link href="ifome/carrinho" >
+            <Image   style={styles.logo} source={require('./img/carrinho.png')} />
+            </Link>
+        
             <FlatList
                 data={comida}
                 keyExtractor={item => item.id.toString()}
@@ -24,6 +28,7 @@ const Comidas = () => {
                     <View style={styles.caixa}>
                         <Image source={item.Image} style={styles.imagem} />
                         <Text style={styles.titulo}>{item.titulo}</Text>
+                        <Text  style={styles.preco}>{item.preco}</Text>
                         <Text style={styles.descricao}>{item.descricao}</Text>
                         <Button 
                         title='Adicionar ao Carrinho'
@@ -88,6 +93,18 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
     },
+    preco:{
+        fontSize: 14,
+        color: '#666',
+        paddingHorizontal: 12,
+        paddingBottom: 12,
+        textAlign: 'center',
+    },
+    logo:{
+        width: 30,
+        height: 30,
+        
+    }
 });
 
 export default Comidas;

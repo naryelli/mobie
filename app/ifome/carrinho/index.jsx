@@ -1,25 +1,44 @@
 import { useContext } from "react";
 import { AppContext } from "../../../scripts/AppContext";
 import { FlatList, View, StyleSheet, Text, Image } from "react-native";
+import { Link } from "expo-router";
 
 export default Cart = () => {
-  const { carrinho, setCarrinho } = useContext(AppContext)
-  console.log(carrinho)
+  const { carrinho, setCarrinho } = useContext(AppContext);
+  console.log(carrinho);
 
   return (
     <View style={styles.container}>
+       <Link href="ifome" >
+            <Image   style={styles.logo} source={require('../img/desfazer.png')} />
+            </Link>
       <FlatList
         data={carrinho}
-        keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.caixa}>
-            <Text style={styles.titulo}>{item.titulo}</Text>
-            <Image source={item.Image} style={styles.imagem} />
+            <View style={styles.imagemContainer}>
+              <Image source={item.Image} style={styles.imagem} />
+            </View>
+            <View style={styles.infoContainer}>
+              <Text style={styles.titulo}>{item.titulo}</Text>
+              <Text style={styles.preco}>{item.preco}</Text>
+              <View style={styles.quantidadeContainer}>
+                <View style={styles.icon}>
+                  <Text style={styles.icons}>-</Text>
+                </View>
+                <Text style={styles.quantidade}>1</Text>
+                <View style={styles.icon}>
+                  <Text style={styles.icons}>+</Text>
+                </View>
+              </View>
+            </View>
+
           </View>
         )}
+        keyExtractor={(item) => item.id.toString()}
       />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -29,6 +48,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   caixa: {
+    flexDirection: 'row',
     backgroundColor: '#ffffff',
     borderRadius: 12,
     marginBottom: 15,
@@ -38,20 +58,50 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 5,
     overflow: 'hidden',
-    paddingBottom: 10,
+    padding: 10,
+  },
+  imagemContainer: {
+    width: '30%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   imagem: {
-    width: '100%',
-    height: 160,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+  },
+  infoContainer: {
+    width: '55%',
+    justifyContent: 'space-between',
   },
   titulo: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
-    padding: 12,
     color: '#333',
-    textAlign: 'center',
   },
-})
+  preco: {
+    fontSize: 18,
+    color:  '#FF69B4', 
+    fontWeight: 'bold',
+    marginVertical: 5,
+  },
+  quantidadeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  quantidade: {
+    fontSize: 18,
+    marginHorizontal: 10,
+    color: '#333',
+  },
+  icons: {
+    fontSize: 18,
+    color: '#333',
+  },
+  logo:{
+    width: 30,
+    height: 30,
+    
+}
 
+});
