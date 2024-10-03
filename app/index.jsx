@@ -16,6 +16,7 @@ export default function Page() {
             <Link href="/sobremim" style={styles.link}>• Sobre Mim</Link>
             <Link href="/ifome" style={styles.link}>• Ifome</Link>
             <Link href="/galeria" style={styles.link}>• Galeria Teste</Link>
+            <Link href="/camera" style={styles.link}>• Camera Teste</Link>
             </View>
         </View>
     );
