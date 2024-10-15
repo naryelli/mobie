@@ -1,62 +1,153 @@
 import { useState, useRef } from "react";
-import { View, StyleSheet, Text, Image, Button } from "react-native";
+import { View, StyleSheet, Text, Image, Button, Pressable, Linking } from "react-native";
 import { CameraView, useCameraPermissions } from "expo-camera";
-
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import * as mediaLibrary from 'expo-media-library';
 
 export default function Camera() {
-    const [permissao, pedirPermissao] = useCameraPermissions()
-    const [foto, setFoto] = useState(null)
-    const cameraRef = useRef(null)
+    const [permissao, pedirPermissao] = useCameraPermissions();
+    const [foto, setFoto] = useState(null);
+    const cameraRef = useRef(null);
+    const [ladoCamera, setLadoCamera] = useState('back');
+    const [scanning, setScanning] = useState(false); 
 
     if (!permissao) {
-        return <View></View>
+        return <View></View>;
     }
 
     if (!permissao.granted) {
         return (
             <View style={styles.container}>
-                <Text style={styles.permissao}>Voce precisa dar permissão para utilizar a camera</Text>
-                <Button
-                    title="pedir permissão"
-                    onPress={pedirPermissao}
-                />
+                <Text style={styles.permissao}>Você precisa dar permissão para utilizar a câmera</Text>
+                <Button title="pedir permissão" onPress={pedirPermissao} />
             </View>
-
-        )
+        );
     }
+
+    const handleBarCodeScanned = ({ type, data }) => {
+        Linking.openURL(data).catch(err => console.error("Erro ao abrir a URL:", err));
+        setScanning(false);
+    };
 
     const tirarFoto = async () => {
-        const foto = await cameraRef.current?.takePictureAsync({
+        const foto64 = await cameraRef.current?.takePictureAsync({
             quality: 0.5,
             base64: true
-        })
-         setFoto(foto)
-         console.log(foto)
-    }
+        });
+        setFoto(foto64);
+        console.log(foto64);
+    };
 
+    const inverterLadoCamera = () => {
+        setLadoCamera(ladoCamera === 'back' ? 'front' : 'back');
+    };
+
+    const salvarFoto = async () => {
+        await mediaLibrary.saveToLibraryAsync(foto.uri);
+        setFoto(null);
+    };
 
     return (
-        <CameraView style={styles.camera} facing={'back'} ref={cameraRef}>
-          <View style={styles.botaosalvar}>
-            <Button
-             title="tirar foto" onPress={tirarFoto}
-            />
-          </View>
-
-        </CameraView>
-    )
+        <View style={styles.container}>
+        {foto ? (
+            <View style={styles.previewContainer}>
+                <Image style={styles.image} source={{ uri: foto.uri }} />
+                <View style={styles.buttonRow}>
+                    <Pressable onPress={() => setFoto(null)} style={styles.botaoImagem}>
+                        <Image source={require('./img/descartar.png')} style={styles.iconBotaod} />
+                    </Pressable>
+                    <Pressable onPress={salvarFoto} style={styles.botaoImagem}>
+                        <Image source={require('./img/salvar.png')} style={styles.iconBotaos} />
+                    </Pressable>
+                </View>
+                </View>
+            ) :
+             scanning ? (
+                <BarCodeScanner
+                    onBarCodeScanned={handleBarCodeScanned}
+                    style={StyleSheet.absoluteFillObject}
+                />
+            ) 
+            : (
+                <CameraView style={styles.camera} facing={ladoCamera} ref={cameraRef}>
+                    <View style={styles.botaosalvar}>
+                        <Pressable onPress={inverterLadoCamera}>
+                            <Image source={require('./img/virar.png')} style={styles.iconvirar} />
+                        </Pressable>
+                        <Pressable onPress={tirarFoto}>
+                            <Image source={require('./img/foto.png')} style={styles.iconfoto} />
+                        </Pressable>
+                        <Pressable onPress={() => setScanning(true)}>
+                          <Image source={require('./img/qr-code.png')} style={styles.qrcode} />
+                        </Pressable>
+                    </View>
+                </CameraView>
+            )}
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         justifyContent: 'center',
-        flex: 1
+        alignItems: 'center'
     },
     permissao: {
         textAlign: 'center',
+        marginBottom: 20,
     },
     camera: {
-        flex: 1
+        width: '100%',
+        height: '100%',
+        justifyContent: 'flex-end',
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+    },
+    botaosalvar: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 20,
+    },
+    iconfoto: {
+        width: 50,
+        height: 50,
+        marginHorizontal: 20,
+    },
+    iconvirar: {
+        width: 50,
+        height: 50,
+        marginHorizontal: 20,
+    },
+    qrcode: {
+        width: 50,
+        height: 50,
+        marginHorizontal: 20,
+    },
+    iconBotaod:{
+        width: 50,
+        height: 50,
+        marginHorizontal: 20,
+    },
+    iconBotaos:{
+        width: 50,
+        height: 50,
+        marginHorizontal: 20,
+    },
+    previewContainer:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    buttonRow:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 20,
     }
 
-})
+    
+});
